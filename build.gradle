@@ -1,0 +1,62 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.1'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'org.graalvm.buildtools.native' version '0.10.4'
+    id "org.graalvm.python" version "24.1.1"
+}
+
+group = 'com.chaney.infra'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(23)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+graalPy {
+    packages = ["numpy==1.26.4","termcolor==2.2"]
+}
+
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.graalvm.polyglot:polyglot:24.1.1'
+    runtimeOnly 'org.graalvm.polyglot:llvm:24.1.1'
+    implementation 'org.graalvm.polyglot:python:24.1.1'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+def projectName = "graalpy"
+
+graalvmNative {
+    binaries {
+        main {
+            imageName.set(projectName)
+            sharedLibrary = false
+
+            buildArgs.add('--verbose')
+            buildArgs.add('--no-fallback')
+            buildArgs.add('--static') // 指定静态编译
+            buildArgs.add('--libc=musl') // 指定使用 musl libc
+
+            buildArgs.add('--add-opens=java.base/java.nio=ALL-UNNAMED')
+            buildArgs.add('--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED')
+            buildArgs.add('--add-opens=java.base/jdk.internal.ref=ALL-UNNAMED')
+            buildArgs.add('-H:+CopyLanguageResources')
+            buildArgs.add('--gc=serial')
+            buildArgs.add('-O1')
+        }
+    }
+}
