@@ -6,7 +6,7 @@
 2. OS: Ubuntu 20.04
 3. JDK: Oracle GraalVM 23.0.1+11.1  with [static-lib](https://pkgs.alpinelinux.org/package/edge/testing/aarch64/openjdk23-static-libs) placed at $JAVA_HOME/lib/static/linux-aarch64/musl
 // this is for static compilation working on aarch64 platform. 
-4. musl locally compiled and installed
+4. musl locally compiled and installed and ungracefully, create a soft link of `x86_64-linux-musl-gcc` for `musl-gcc`
 
 ## step 1:
 ```shell
