@@ -25,7 +25,7 @@ git clone https://github.com/buuuuuuug/graalpy.git
 
 ## step 4:
 ```shell
-curl -X GET http://localhost:8080/eval?path=/path/to/demo.py
+curl http://localhost:8080/eval?path=/path/to/demo.py
 ```
 
 fire a request with absolute path of [demo.py](src/main/python/demo.py)
