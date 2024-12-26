@@ -21,6 +21,8 @@ repositories {
 
 graalPy {
     packages = ["numpy==1.26.4","termcolor==2.2"]
+//    pythonResourcesDirectory = file("${project.projectDir}/src/main/python")
+//    resource
 }
 
 
@@ -50,13 +52,18 @@ graalvmNative {
             buildArgs.add('--no-fallback')
             buildArgs.add('--static') // 指定静态编译
             buildArgs.add('--libc=musl') // 指定使用 musl libc
-
+	    //buildArgs.add('--native-image-disable-dynamic-linker')
             buildArgs.add('--add-opens=java.base/java.nio=ALL-UNNAMED')
             buildArgs.add('--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED')
             buildArgs.add('--add-opens=java.base/jdk.internal.ref=ALL-UNNAMED')
             buildArgs.add('-H:+CopyLanguageResources')
-            buildArgs.add('--gc=serial')
+	    //buildArgs.add('-H:DynamicLinkerHint=/home/chaney/IdeaProjects/graalpy/build/generated/graalpy/resources/org.graalvm.python.vfs/venv/lib/python3.11/site-packages/numpy/core')
+//            buildArgs.add('--gc=G1')
             buildArgs.add('-O1')
+
+//            buildArgs.add('--link-at-build-time')
         }
     }
 }
+
+//gradle.startParameter.maxWorkerCount = 10
