@@ -1,0 +1,28 @@
+[
+  {
+    "name": "com.chaney.infra.graalpy.endpoint.DemoController",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "org.luaj.vm2.lib",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true
+  },
+  {
+    "name": "org.luaj.vm2.lib.Bit32Lib",
+    "innerClasses": [
+      {
+        "name": "Bit32LibV",
+        "allDeclaredConstructors": true,
+        "allPublicConstructors": true,
+        "allDeclaredMethods": true,
+        "allPublicMethods": true
+      }
+    ]
+  }
+]
