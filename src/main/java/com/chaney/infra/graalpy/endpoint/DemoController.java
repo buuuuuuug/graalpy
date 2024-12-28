@@ -23,7 +23,7 @@ public class DemoController {
 
     private static void initContext() {
         context = GraalPyResources
-                .contextBuilder(Path.of("/home/chaney/IdeaProjects/graalpy/fs"))
+                .contextBuilder(Path.of("/Users/chaneychan/IdeaProjects/graalPy/fs"))
                 .allowAllAccess(true)
                 //            .allowCreateProcess(true)
                 //            .allowCreateThread(true)
@@ -51,7 +51,7 @@ public class DemoController {
         context.eval(source);
 
         // 修改文件内容
-        Path libPath = Paths.get("/home/chaney/IdeaProjects/graalpy/fs/src/lib.py");
+        Path libPath = Paths.get("/Users/chaneychan/IdeaProjects/graalPy/fs/src/lib.py");
         String oriContent = new String(Files.readAllBytes(libPath));
         String replaced = oriContent.replace("++", "hh");
         // flush modification
