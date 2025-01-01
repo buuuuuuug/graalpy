@@ -5,7 +5,6 @@ import java.nio.file.Paths;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Source;
 import org.graalvm.python.embedding.utils.GraalPyResources;
-import org.graalvm.python.embedding.utils.VirtualFileSystem;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.lib.jse.JsePlatform;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +22,11 @@ public class DemoController {
 
     private static void initContext() {
         context = GraalPyResources
-                .contextBuilder(Path.of("/Users/chaneychan/IdeaProjects/graalPy/fs"))
+//                .contextBuilder(Path.of("/Users/chaneychan/IdeaProjects/graalPy/fs"))
+                .contextBuilder()
+                .allowExperimentalOptions(true)
+                .option("python.PythonPath", "/Users/chaneychan/IdeaProjects/graalPy/fs/src")
+                .option("python.InputFilePath", "/Users/chaneychan/IdeaProjects/graalPy/fs/src")
                 .allowAllAccess(true)
                 //            .allowCreateProcess(true)
                 //            .allowCreateThread(true)
@@ -60,6 +63,8 @@ public class DemoController {
 
         // 重新执行
         context.eval(source);
+
+        context.close();
 
         String luaScript = """
                 require('luajava')
