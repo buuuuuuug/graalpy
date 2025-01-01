@@ -20,9 +20,7 @@ repositories {
 }
 
 graalPy {
-    packages = ["numpy==1.26.4","termcolor==2.2"]
-    pythonResourcesDirectory = file("${project.projectDir}/fs")
-//    resource
+
 }
 
 

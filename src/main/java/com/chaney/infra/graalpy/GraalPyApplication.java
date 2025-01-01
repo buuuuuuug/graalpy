@@ -8,9 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class GraalPyApplication {
 
     public static void main(String[] args) {
-        try (var context = Context.create()) {
-            System.out.println(context.eval("python", "'Hello Python!'").asString());
-        }
+//        try (var context = Context.create()) {
+//            System.out.println(context.eval("python", "'Hello Python!'").asString());
+//        }
         SpringApplication.run(GraalPyApplication.class, args);
     }
 

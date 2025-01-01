@@ -25,8 +25,8 @@ public class DemoController {
 //                .contextBuilder(Path.of("/Users/chaneychan/IdeaProjects/graalPy/fs"))
                 .contextBuilder()
                 .allowExperimentalOptions(true)
-                .option("python.PythonPath", "/Users/chaneychan/IdeaProjects/graalPy/fs/src")
-                .option("python.InputFilePath", "/Users/chaneychan/IdeaProjects/graalPy/fs/src")
+                .option("python.PythonPath", System.getProperty("python.InputFilePath"))
+                .option("python.InputFilePath", System.getProperty("python.InputFilePath"))
                 .allowAllAccess(true)
                 //            .allowCreateProcess(true)
                 //            .allowCreateThread(true)
@@ -64,7 +64,7 @@ public class DemoController {
         // 重新执行
         context.eval(source);
 
-        context.close();
+//        context.close();
 
         String luaScript = """
                 require('luajava')
