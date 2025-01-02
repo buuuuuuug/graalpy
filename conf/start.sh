@@ -1,5 +1,5 @@
 # 1. 生成一个随机字符串
-random_string=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
+random_string=$(date +%s | md5sum | head -c 8)
 echo "Random string: $random_string"
 if [ -z "$random_string" ]; then
     echo "Failed to generate random string."
