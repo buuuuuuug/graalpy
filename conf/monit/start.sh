@@ -10,6 +10,7 @@ if [ -z "$random_string" ]; then
 fi
 
 # 2. 将脚本压缩包 script.zip 解压到随机字符串相对的目录
+cd /Users/chaneychan/IdeaProjects/graalPy/conf/monit
 unzip -o script.zip -d /home/chaneychan/dist/"$random_string"
 if [ $? -ne 0 ]; then
     echo "Failed to unzip script.zip."
@@ -17,7 +18,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # 3. 将随机字符串作为参数传递入程序内
-./graalpy -Xss8M -Dpython.InputFilePath="$random_string"
+./graalpy -Xss8M -Dpython.InputFilePath="$random_string" &
 
 # 获取进程 ID 并写入 PID 文件
 echo $! > $PID_FILE

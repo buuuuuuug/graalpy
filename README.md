@@ -1,105 +1,30 @@
-# STEP TO REPRODUCE THE ERROR
-
-## Pre requirements
-
-1. architecture: aarch64
-2. OS: Ubuntu 20.04
-3. JDK: Oracle GraalVM 23.0.1+11.1  with [static-lib](https://pkgs.alpinelinux.org/package/edge/testing/aarch64/openjdk23-static-libs) placed at $JAVA_HOME/lib/static/linux-aarch64/musl
-// this is for static compilation working on aarch64 platform. 
-4. musl locally compiled and installed and ungracefully, create a soft link of `x86_64-linux-musl-gcc` for `musl-gcc`
-
-## step 1:
-```shell
-git clone https://github.com/buuuuuuug/graalpy.git
-```
-
-## step 2:
-```shell
-./gradlew nativeCompile
-```
-
-## step 3:
-```shell
-./build/native/nativeCompile/graalpy -Xss8M
-```
-
-## step 4:
-```shell
-curl http://localhost:8080/eval?path=/path/to/demo.py
-```
-
-fire a request with absolute path of [demo.py](src/main/python/demo.py)
-
-## ERROR I GOT
-
-```text
-Traceback (most recent call last):
-  File "Unnamed", line 1, in <module>
-  File "/graalpy_vfs/venv/lib/python3.11/site-packages/numpy/__init__.py", line 130, in <module>
-    from numpy.__config__ import show as show_config
-  File "/graalpy_vfs/venv/lib/python3.11/site-packages/numpy/__config__.py", line 4, in <module>
-    from numpy.core._multiarray_umath import (
-  File "/graalpy_vfs/venv/lib/python3.11/site-packages/numpy/core/__init__.py", line 24, in <module>
-    from . import multiarray
-  File "/graalpy_vfs/venv/lib/python3.11/site-packages/numpy/core/multiarray.py", line 10, in <module>
-    from . import overrides
-  File "/graalpy_vfs/venv/lib/python3.11/site-packages/numpy/core/overrides.py", line 8, in <module>
-    from numpy.core._multiarray_umath import (
-SystemError: NFIUnsatisfiedLinkError: Dynamic loading not supported
-2024-12-23T07:26:49.931Z ERROR 242964 --- [graalPy] [nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.graalvm.polyglot.PolyglotException] with root cause
-
-org.graalvm.polyglot.PolyglotException: null
-	at org.graalvm.polyglot/org.graalvm.polyglot.Context.eval(Context.java:402) ~[na:na]
-	at com.chaney.infra.graalpy.endpoint.DemoController.eval(DemoController.java:25) ~[graalpy:na]
-	at java.base@23.0.1/java.lang.reflect.Method.invoke(Method.java:580) ~[graalpy:na]
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:257) ~[graalpy:6.2.1]
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190) ~[graalpy:6.2.1]
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[graalpy:6.2.1]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986) ~[graalpy:6.2.1]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891) ~[graalpy:6.2.1]
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[graalpy:6.2.1]
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1088) ~[graalpy:6.2.1]
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:978) ~[graalpy:6.2.1]
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[graalpy:6.2.1]
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903) ~[graalpy:6.2.1]
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564) ~[graalpy:6.0]
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[graalpy:6.2.1]
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[graalpy:6.0]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195) ~[na:na]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[na:na]
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[graalpy:10.1.34]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[na:na]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[na:na]
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[graalpy:6.2.1]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[graalpy:6.2.1]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[na:na]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[na:na]
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[graalpy:6.2.1]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[graalpy:6.2.1]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[na:na]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[na:na]
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[graalpy:6.2.1]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[graalpy:6.2.1]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[na:na]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[na:na]
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[na:na]
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[na:na]
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[graalpy:10.1.34]
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[na:na]
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[graalpy:10.1.34]
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[na:na]
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[na:na]
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[na:na]
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[graalpy:10.1.34]
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905) ~[na:na]
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741) ~[na:na]
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[graalpy:10.1.34]
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[na:na]
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[na:na]
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[na:na]
-	at java.base@23.0.1/java.lang.Thread.runWith(Thread.java:1588) ~[graalpy:na]
-	at java.base@23.0.1/java.lang.Thread.run(Thread.java:1575) ~[graalpy:na]
-	at org.graalvm.nativeimage.builder/com.oracle.svm.core.thread.PlatformThreads.threadStartRoutine(PlatformThreads.java:832) ~[graalpy:na]
-	at org.graalvm.nativeimage.builder/com.oracle.svm.core.thread.PlatformThreads.threadStartRoutine(PlatformThreads.java:808) ~[graalpy:na]
-```
-
+## **智能体基础**
+- 定义与特征：能感知和作用于环境，环境由用例决定，行动集由工具扩充，如 ChatGPT 可搜索、执行代码和生成图像{insert\_element\_0\_}
+- 任务执行：AI 为大脑处理任务，复杂任务需多步完成，受模型精度和任务重要性影响，多步任务可能因精度降低而失败{insert\_element\_1\_}
+## **工具分类及作用**
+- 知识增强：如文本检索器等，用组织信息或公共信息增强模型，防止过时，如 Web 浏览可获取最新信息{insert\_element\_2\_}
+- 能力扩展：解决模型固有局限，如计算器提升数学能力，代码解释器有风险，可执行代码但可能遭攻击{insert\_element\_3\_}
+- 写入操作：可改变数据源，实现自动化工作流，但存在安全风险，如 SQL 执行器可修改数据{insert\_element\_4\_}
+## **规划流程与方法**
+- 规划概述：复杂任务需规划，应解耦规划与执行，用启发式或 AI 法官验证计划，避免无效执行{insert\_element\_5\_}
+- 基础模型规划：其规划能力存争议，可通过工具和状态跟踪系统增强，如 LLM 可结合搜索工具规划{insert\_element\_6\_}
+- 计划生成：用提示工程，注意计划格式、参数确定及幻觉问题，有提升技巧，如优化系统提示等{insert\_element\_7\_}
+## **函数调用与规划控制**
+- 函数调用机制：创建工具清单，指定工具使用，模型生成工具及参数，需检查，确保函数调用有效{insert\_element\_8\_}
+- 规划粒度：有不同层次，需权衡，可用自然语言生成计划，需翻译，自然语言计划更稳健但需转换{insert\_element\_9\_}
+- 复杂计划控制：包括多种控制流，非顺序控制流难生成和执行，需评估支持情况，如并行执行可降延迟{insert\_element\_10\_}
+## **反思与纠错机制**
+- 反思作用：在任务多处有用，与纠错配合，可用自批判提示或单独组件，如 ReAct 框架的应用{insert\_element\_11\_}
+- 实施方式：可在单或多智能体设置中进行，能让智能体从错误中学习，如 Reflexion 框架的分离模块{insert\_element\_12\_}
+- 缺点：增加延迟和成本，需用大量示例引导智能体，如 ReAct 和 Reflexion 增加计算成本{insert\_element\_13\_}
+## **工具选择策略**
+- 考量因素：取决于环境、任务和模型，无确定指南，需实验分析，如不同任务和模型工具偏好不同{insert\_element\_14\_}
+- 工具数量：多工具增能力但难有效使用，需找到平衡，过多工具增加使用难度和描述长度{insert\_element\_15\_}
+- 工具创新：可研究工具转换，用技能管理器跟踪新工具，如 Chameleon 研究工具转换{insert\_element\_16\_}
+## **智能体失败模式与评估**
+- 规划失败：包括工具使用和目标失败等，可创建数据集评估，如分析计划和工具调用有效性{insert\_element\_17\_}
+- 工具失败：正确使用工具但输出错误，需独立测试工具，如测试图像 captioner 和 SQL 查询生成器{insert\_element\_18\_}
+- 效率评估：跟踪任务完成步骤、成本和时间等指标与基线比较，注意 AI 与人操作模式差异{insert\_element\_19\_}
+## **研究总结与展望**
+- 核心概念总结：由环境和工具定义，基于已有概念，工具重要，如 LLM 结合工具实现功能{insert\_element\_20\_}
+- 未来研究方向：评估智能体框架，探索记忆系统工作原理，如研究智能体处理超上下文信息{insert\_element\_21\_}

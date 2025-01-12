@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monit: ubuntu</title>
+    <style  type="text/css">  html, body {height: 100%;margin: 0;}  body {background-color: white;font: normal normal normal 16px/20px 'HelveticaNeue', Helvetica, Arial, sans-serif; color:#222;}  h1 {padding:30px 0 10px 0; text-align:center;color:#222;font-size:28px;}  h2 {padding:20px 0 10px 0; text-align:center;color:#555;font-size:22px;}  a:hover {text-decoration: none;}  a {text-decoration: underline;color:#222}  table {border-collapse:collapse; border:0;}  .stripe {background:#EDF5FF}  .rule {background:#ddd}  .red-text {color:#ff0000;}  .green-text {color:#00ff00;}  .gray-text {color:#999999;}  .blue-text {color:#0000ff;}  .yellow-text {color:#ffff00;}  .orange-text {color:#ff8800;}  .short {overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 350px;} .column {min-width: 80px;}  .left {text-align:left}  .right {text-align:right}  .center {text-align:center}  #wrap {min-height: 100%;}  #main {overflow:auto; padding-bottom:50px;}  /*Opera Fix*/body:before {content:"";height:100%;float:left;width:0;margin-top:-32767px;}  #footer {position: relative;margin-top: -50px; height: 50px; clear:both; font-size:11px;color:#777;text-align:center;}  #footer a {color:#333;} #footer a:hover {text-decoration: none;}  #nav {background:#ddd;font:normal normal normal 14px/0px 'HelveticaNeue', Helvetica;}  #nav td {padding:5px 10px;}  #header {margin-bottom:30px;background:#EFF7FF}  #nav, #header {border-bottom:1px solid #ccc;}  #header-row {width:95%;}  #header-row th {padding:30px 10px 10px 10px;font-size:120%;}  #header-row td {padding:3px 10px;}  #header-row .first {min-width:200px;width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}  #status-table {width:95%;}  #status-table th {text-align:left;background:#edf5ff;font-weight:normal;}  #status-table th, #status-table td, #status-table tr {border:1px solid #ccc;padding:5px;}  #buttons {font-size:20px; margin:40px 0 20px 0;}  #buttons td {padding-right:50px;}  #buttons input {font-size:18px;padding:5px;} </style>
+    <meta  HTTP-EQUIV='REFRESH' CONTENT=30>
+    <meta  HTTP-EQUIV='Expires' Content=0>
+    <meta  HTTP-EQUIV='Pragma' CONTENT='no-cache'>
+    <meta  charset='UTF-8'>
+    <link  rel='shortcut icon' href='favicon.ico'>
+</head>
+<body>
+<div  id='wrap'>
+    <div  id='main'>
+        <table  id='nav' width='100%'>
+            <tr>
+                <td  width='20%'>
+                    <a  href='.'>Home</a>&nbsp;&gt;&nbsp;<a  href='graalpy'>graalpy</a>
+                </td>
+                <td  width='60%' style='text-align:center;'>Use <a  href='https://mmonit.com/'>M/Monit</a> to manage all your Monit instances</td>
+                <td  width='20%'>
+                    <p  class='right'>
+                        <a  href='_about'>Monit 5.34.3</a>
+                </td>
+            </tr>
+        </table>
+        <center>
+            <h2>Process status</h2>
+            <table  id='status-table'>
+                <tr>
+                    <th  width='30%'>Parameter</th>
+                    <th  width='70%'>Value</th>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td>graalpy</td>
+                </tr>
+                <tr>
+                    <td>Pid file</td>
+                    <td>/Users/chaneychan/IdeaProjects/graalPy/conf/monit/graalpy.pid</td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td>
+                        <span  class='green-text'>OK</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Group</td>
+                    <td>graalpy</td>
+                </tr>
+                <tr>
+                    <td>Monitoring status</td>
+                    <td>
+                        <span>Monitored</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Monitoring mode</td>
+                    <td>active</td>
+                </tr>
+                <tr>
+                    <td>On reboot</td>
+                    <td>start</td>
+                </tr>
+                <tr>
+                    <td>Start program</td>
+                    <td>'/usr/bin/bash /Users/chaneychan/IdeaProjects/graalPy/conf/monit/start.sh' timeout 30 s</td>
+                </tr>
+                <tr>
+                    <td>Stop program</td>
+                    <td>'/usr/bin/bash /Users/chaneychan/IdeaProjects/graalPy/conf/monit/stop.sh' timeout 30 s</td>
+                </tr>
+                <tr>
+                    <td>Pid</td>
+                    <td>284186</td>
+                </tr>
+                <tr>
+                    <td>Parent pid</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>Uid</td>
+                    <td>501</td>
+                </tr>
+                <tr>
+                    <td>Effective uid</td>
+                    <td>501</td>
+                </tr>
+                <tr>
+                    <td>Gid</td>
+                    <td>501</td>
+                </tr>
+                <tr>
+                    <td>Uptime</td>
+                    <td>2m</td>
+                </tr>
+                <tr>
+                    <td>Threads</td>
+                    <td>19</td>
+                </tr>
+                <tr>
+                    <td>Children</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Cpu</td>
+                    <td>0.0%</td>
+                </tr>
+                <tr>
+                    <td>Cpu total</td>
+                    <td>0.0%</td>
+                </tr>
+                <tr>
+                    <td>Memory</td>
+                    <td>0.9% [110.9 MB]</td>
+                </tr>
+                <tr>
+                    <td>Memory total</td>
+                    <td>0.9% [110.9 MB]</td>
+                </tr>
+                <tr>
+                    <td>Security attribute</td>
+                    <td  class='gray-text'>-</td>
+                </tr>
+                <tr>
+                    <td>Filedescriptors</td>
+                    <td>9 [0.0% of 1048576 limit]</td>
+                </tr>
+                <tr>
+                    <td>Total filedescriptors</td>
+                    <td>9</td>
+                </tr>
+                <tr>
+                    <td>Read bytes</td>
+                    <td>0 B/s [47.9 kB total]</td>
+                </tr>
+                <tr>
+                    <td>Disk read bytes</td>
+                    <td>0 B/s [20 kB total]</td>
+                </tr>
+                <tr>
+                    <td>Disk read operations</td>
+                    <td>0.0 reads/s [63 reads total]</td>
+                </tr>
+                <tr>
+                    <td>Write bytes</td>
+                    <td>0 B/s [0 B total]</td>
+                </tr>
+                <tr>
+                    <td>Disk write bytes</td>
+                    <td>0 B/s [0 B total]</td>
+                </tr>
+                <tr>
+                    <td>Disk write operations</td>
+                    <td>0.0 writes/s [26 writes total]</td>
+                </tr>
+                <tr>
+                    <td>Data collected</td>
+                    <td>Thu, 09 Jan 2025 21:39:54</td>
+                </tr>
+                <tr  class='rule'>
+                    <td>Timeout</td>
+                    <td>If restarted 5 times within 5 cycle(s) then unmonitor</td>
+                </tr>
+                <tr  class='rule'>
+                    <td>Existence</td>
+                    <td>If doesn't exist then restart</td>
+                </tr>
+            </table>
+        </center>
+    </div>
+</div>
+</body>
+</html>

@@ -33,6 +33,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation 'org.luaj:luaj-jse:3.0.1'
+    implementation 'org.apache.httpcomponents.client5:httpclient5:5.4.1'
+    implementation 'org.jsoup:jsoup:1.18.3'
 }
 
 tasks.named('test') {
@@ -59,10 +61,6 @@ graalvmNative {
 	    //buildArgs.add('-H:DynamicLinkerHint=/home/chaney/IdeaProjects/graalpy/build/generated/graalpy/resources/org.graalvm.python.vfs/venv/lib/python3.11/site-packages/numpy/core')
 //            buildArgs.add('--gc=G1')
             buildArgs.add('-O1')
-
-//            buildArgs.add("-H:ReflectionConfigurationFiles=${projectDir}/src/main/resources/reflection-config.json")
-//            buildArgs.add("-H:ResourceConfigurationFiles=${projectDir}/src/main/resources/resources-config.json")
-//            buildArgs.add('--link-at-build-time')
         }
     }
 }
