@@ -20,7 +20,7 @@ repositories {
 }
 
 graalPy {
-
+    packages = ["pandas==2.0.3"]
 }
 
 
@@ -60,7 +60,7 @@ graalvmNative {
             buildArgs.add('-H:+CopyLanguageResources')
 	    //buildArgs.add('-H:DynamicLinkerHint=/home/chaney/IdeaProjects/graalpy/build/generated/graalpy/resources/org.graalvm.python.vfs/venv/lib/python3.11/site-packages/numpy/core')
 //            buildArgs.add('--gc=G1')
-            buildArgs.add('-O1')
+            buildArgs.add('-Ob')
         }
     }
 }
