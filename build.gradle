@@ -11,14 +11,14 @@ version = '0.0.1-SNAPSHOT'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(23)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
 repositories {
-    maven {
-        url 'https://mirrors.cloud.tencent.com/nexus/repository/maven-public/'
-    }
+    //maven {
+    //    url 'https://mirrors.cloud.tencent.com/nexus/repository/maven-public/'
+    //}
     mavenCentral()
 }
 
