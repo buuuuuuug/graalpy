@@ -3,7 +3,7 @@ plugins {
     id 'org.springframework.boot' version '3.4.1'
     id 'io.spring.dependency-management' version '1.1.7'
     id 'org.graalvm.buildtools.native' version '0.10.4'
-    id "org.graalvm.python" version "24.1.2"
+//    id "org.graalvm.python" version "24.1.1"
 }
 
 group = 'com.chaney.infra'
@@ -22,27 +22,26 @@ repositories {
     mavenCentral()
 }
 
-graalPy {
-    packages = ["pandas==1.5.2"]
-}
+//graalPy {
+//    packages = ["pandas==1.5.2"]
+//}
 
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.graalvm.polyglot:polyglot:24.1.2'
-    runtimeOnly 'org.graalvm.polyglot:llvm:24.1.2'
-    implementation 'org.graalvm.polyglot:python:24.1.2'
+//    implementation 'org.graalvm.python:python:24.1.1'
+//    implementation 'org.graalvm.python:python-embedding:24.1.1'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+//    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation 'org.luaj:luaj-jse:3.0.1'
     implementation 'org.apache.httpcomponents.client5:httpclient5:5.4.1'
     implementation 'org.jsoup:jsoup:1.18.3'
 
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.xerial:sqlite-jdbc:3.49.0.0'
-    implementation 'org.hibernate.orm:hibernate-community-dialects:7.0.0.Beta4'
-    implementation 'org.hibernate.orm:hibernate-graalvm:7.0.0.Beta4'
+//    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//    implementation 'org.xerial:sqlite-jdbc:3.36.0.1'
+//    implementation 'org.hibernate.orm:hibernate-community-dialects:6.6.2.Final'
+//    implementation 'org.hibernate.orm:hibernate-graalvm:7.0.0.Beta4'
 }
 
 tasks.named('test') {
@@ -62,10 +61,10 @@ graalvmNative {
             buildArgs.add('--static-nolibc') // 指定静态编译
 //            buildArgs.add('--libc=musl') // 指定使用 musl libc
 	    //buildArgs.add('--native-image-disable-dynamic-linker')
-//            buildArgs.add('--add-opens=java.base/java.nio=ALL-UNNAMED')
-//            buildArgs.add('--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED')
-//            buildArgs.add('--add-opens=java.base/jdk.internal.ref=ALL-UNNAMED')
-            buildArgs.add('-H:+CopyLanguageResources')
+            buildArgs.add('--add-opens=java.base/java.nio=ALL-UNNAMED')
+            buildArgs.add('--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED')
+            buildArgs.add('--add-opens=java.base/jdk.internal.ref=ALL-UNNAMED')
+//            buildArgs.add('-H:+CopyLanguageResources')
 	    //buildArgs.add('-H:DynamicLinkerHint=/home/chaney/IdeaProjects/graalpy/build/generated/graalpy/resources/org.graalvm.python.vfs/venv/lib/python3.11/site-packages/numpy/core')
 //            buildArgs.add('--gc=G1')
             buildArgs.add('-O0')
