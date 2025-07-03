@@ -3,7 +3,7 @@ plugins {
     id 'org.springframework.boot' version '3.4.1'
     id 'io.spring.dependency-management' version '1.1.7'
     id 'org.graalvm.buildtools.native' version '0.10.4'
-//    id "org.graalvm.python" version "24.1.1"
+    id "org.graalvm.python" version "24.1.1"
 }
 
 group = 'com.chaney.infra'
@@ -22,16 +22,16 @@ repositories {
     mavenCentral()
 }
 
-//graalPy {
+graalPy {
 //    packages = ["pandas==1.5.2"]
-//}
+}
 
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-//    implementation 'org.graalvm.python:python:24.1.1'
-//    implementation 'org.graalvm.python:python-embedding:24.1.1'
+    implementation 'org.graalvm.python:python:24.1.1'
+    implementation 'org.graalvm.python:python-embedding:24.1.1'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 //    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation 'org.luaj:luaj-jse:3.0.1'
@@ -58,7 +58,7 @@ graalvmNative {
 
             buildArgs.add('--verbose')
             buildArgs.add('--no-fallback')
-            buildArgs.add('--static-nolibc') // 指定静态编译
+//            buildArgs.add('--static-nolibc') // 指定静态编译
 //            buildArgs.add('--libc=musl') // 指定使用 musl libc
 	    //buildArgs.add('--native-image-disable-dynamic-linker')
             buildArgs.add('--add-opens=java.base/java.nio=ALL-UNNAMED')
@@ -66,7 +66,7 @@ graalvmNative {
             buildArgs.add('--add-opens=java.base/jdk.internal.ref=ALL-UNNAMED')
 //            buildArgs.add('-H:+CopyLanguageResources')
 	    //buildArgs.add('-H:DynamicLinkerHint=/home/chaney/IdeaProjects/graalpy/build/generated/graalpy/resources/org.graalvm.python.vfs/venv/lib/python3.11/site-packages/numpy/core')
-//            buildArgs.add('--gc=G1')
+            buildArgs.add('--gc=G1')
             buildArgs.add('-O0')
         }
     }
